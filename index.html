@@ -257,20 +257,22 @@
         async function getAiResponse(userMessage) {
             loadingIndicator.classList.add('active'); // Show loading indicator
             try {
-                // In a real scenario, you would send userMessage to your n8n webhook here
-                // For now, we'll simulate a delay and a generic response
-                await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+                // This is where you will put your n8n webhook URL.
+                // Example: const n8nWebhookUrl = 'https://your-n8n-instance.com/webhook/your-webhook-id';
+                const n8nWebhookUrl = 'https://primary-production-3a04f.up.railway.app/webhook/1bdb8f68-fae7-44cd-a2bf-ec38a457edc5'; // <--- Replace this placeholder!
 
-                // Placeholder for n8n API call
-                // const response = await fetch('YOUR_N8N_WEBHOOK_URL', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify({ message: userMessage })
-                // });
-                // const data = await response.json();
-                // return data.aiResponse; // Assuming your n8n workflow returns { aiResponse: "..." }
+                // If you have your n8n webhook URL, uncomment the fetch block below
+                // and remove the simulated delay and generic response.
 
-                return `You said: "${userMessage}". I'm PuchoAI, and I'm learning! Soon I'll be able to answer much more.`;
+                const response = await fetch(n8nWebhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userMessage })
+                });
+                const data = await response.json();
+                return data.aiResponse; // Assuming your n8n workflow returns { aiResponse: "..." }
+
+                
 
             } catch (error) {
                 console.error('Error getting AI response:', error);
