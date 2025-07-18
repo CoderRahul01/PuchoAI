@@ -270,6 +270,7 @@
                     body: JSON.stringify({ message: userMessage })
                 });
                 const data = await response.json();
+                console.log(data);
                 return data.aiResponse; // Assuming your n8n workflow returns { aiResponse: "..." }
 
                 
